@@ -324,7 +324,7 @@ const DynamicForm = () => {
 
         {/* Conditionally render the subdropdown */}
       
-        <div className="addleads-input-group">
+        {/* <div className="addleads-input-group">
           <label>Another Name</label>
           <input
             type="text"
@@ -333,9 +333,9 @@ const DynamicForm = () => {
             value={formData.another_name}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
         <div className="addleads-input-group">
-          <label>Another Email</label>
+          <label>Secondary Email</label>
           <input
             type="email"
             name="another_email"
@@ -345,7 +345,7 @@ const DynamicForm = () => {
           />
         </div>
         <div className="addleads-input-group">
-          <label>Another Phone Number</label>
+          <label>Secondary Phone Number</label>
           <input
             type="text"
             name="another_phone_number"

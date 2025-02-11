@@ -51,10 +51,11 @@ const EditLeadOppView = () => {
                     
                     // Split child_ages string into an array
                     const childAgesArray = trip.child_ages ? trip.child_ages.split(',') : [];
-    
+                    const reminder = trip.reminder_setting ? new Date(trip.reminder_setting).toISOString().slice(0, 16) : ''; 
                     return {
                         ...trip,
                         comments: commentsResponse.data,
+                        reminder_setting: reminder, 
                         child_ages: childAgesArray, // Set child_ages as an array
                     };
                 })
@@ -88,7 +89,6 @@ const EditLeadOppView = () => {
     //     updatedOpportunities[index] = { ...updatedOpportunities[index], [name]: value };
     //     setTravelOpportunity(updatedOpportunities);
     // };
-
 
     const handleOpportunityChange = (index, e) => {
         const { name, value } = e.target;
@@ -337,7 +337,7 @@ const EditLeadOppView = () => {
                                                         <Accordion.Header>
                                                             <div className="d-flex justify-content-between align-items-center w-100">
                                                                 <span>
-                                                                    Booked {trip.destination} on {new Date(trip.start_date).toLocaleDateString("en-US", { month: "short", day: "2-digit" })}
+                                                                InProgress to {trip.destination} on {new Date(trip.start_date).toLocaleDateString("en-US", { month: "short", day: "2-digit" })}
                                                                 </span>
                                                                 {!editOpportunityMode[index] ? (
                                                                     <Button
@@ -403,32 +403,6 @@ const EditLeadOppView = () => {
                                                                 </Col>
                                                             </Row>
                                                             <Row>
-                                                                {/* <Col md={6}>
-                                                                    <Form.Group>
-                                                                        <Form.Label>End Date</Form.Label>
-                                                                        <Form.Control
-                                                                            type="date"
-                                                                            name="end_date"
-                                                                            value={trip.end_date || ""}
-                                                                            onChange={(e) => handleOpportunityChange(index, e)}
-                                                                            disabled={!editOpportunityMode[index]}
-                                                                            min={trip.start_date} // Disable dates before start date
-                                                                        />
-                                                                    </Form.Group>
-                                                                </Col>
-
-                                                                <Col md={6}>
-                                                                    <Form.Group>
-                                                                        <Form.Label>Duration</Form.Label>
-                                                                        <Form.Control
-                                                                            type="text"
-                                                                            name="duration"
-                                                                            value={trip.duration || ""}
-                                                                            onChange={(e) => handleOpportunityChange(index, e)}
-                                                                            disabled={!editOpportunityMode[index]}
-                                                                        />
-                                                                    </Form.Group>
-                                                                </Col> */}
                                                                 <Col md={6}>
                                                                     <Form.Group>
                                                                         <Form.Label>End Date</Form.Label>
@@ -445,9 +419,9 @@ const EditLeadOppView = () => {
 
                                                                 <Col md={6}>
                                                                     <Form.Group>
-                                                                        <Form.Label>Duration</Form.Label>
+                                                                        <Form.Label>Duration(Nights)</Form.Label>
                                                                         <Form.Control
-    type="number"
+    type="text"
     name="duration"
     value={trip.duration || ""}
     onChange={(e) => handleOpportunityChange(index, e)}
@@ -519,19 +493,19 @@ const EditLeadOppView = () => {
                                                             </Row>
                                                             <Row>
                                                             <Col md={12}>
-                                                                    <Form.Group>
-                                                                        <Form.Label>Reminder Setting</Form.Label>
-                                                                        <Form.Control
-                                                                            type="date"
-                                                                            name="reminder_setting"
-                                                                            value={trip.reminder_setting || ""}
-                                                                            onChange={(e) => handleOpportunityChange(index, e)}
-                                                                            disabled={!editOpportunityMode[index]}
-                                                                            min={new Date().toISOString().split("T")[0]} // Disable past dates
-                                                                            max={trip.start_date} // Disable dates after start date
-                                                                        />
-                                                                    </Form.Group>
-                                                                </Col>
+    <Form.Group>
+        <Form.Label>Reminder Setting</Form.Label>
+        <Form.Control
+            type="datetime-local" // Change to datetime-local for date and time
+            name="reminder_setting"
+            value={trip.reminder_setting || ""}
+            onChange={(e) => handleOpportunityChange(index, e)}
+            disabled={!editOpportunityMode[index]}
+            min={new Date().toISOString().slice(0, 16)} // Disable past dates
+            max={trip.start_date ? new Date(trip.start_date).toISOString().slice(0, 16) : ""} // Disable dates after start date
+        />
+    </Form.Group>
+</Col>
                                                             </Row>
                                                         </Accordion.Body>
                                                     </Accordion.Item>
@@ -617,6 +591,7 @@ const EditLeadOppView = () => {
         </div>
     );
 };
+
 
 
 export default EditLeadOppView;

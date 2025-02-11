@@ -15,6 +15,7 @@ const ProfileForm = () => {
     name: "",
     email: "",
     mobile: "",
+    role: "",
     dob: "",
     qualification: "",
     address: "",
@@ -35,6 +36,7 @@ const ProfileForm = () => {
           name: data.name || "",
           email: data.email || "",
           mobile: data.mobile || "",
+          role: data.role || "",
           dob: data.dob ? data.dob.split("T")[0] : "",
           qualification: data.qualification || "",
           address: data.address || "",
@@ -59,6 +61,7 @@ const ProfileForm = () => {
     data.append("name", formData.name);
     data.append("email", formData.email);
     data.append("mobile", formData.mobile);
+    data.append("role", formData.role);
     data.append("dob", formData.dob);
     data.append("qualification", formData.qualification);
     data.append("address", formData.address);
@@ -161,15 +164,16 @@ const ProfileForm = () => {
             </div>
 
             <div className="profile-form-grid">
-              <div className="profile-input-group">
-                <label htmlFor="qualification">Qualification</label>
+            <div className="profile-input-group">
+                <label htmlFor="role">Role</label>
                 <input
                   type="text"
-                  id="qualification"
-                  name="qualification"
-                  value={formData.qualification}
+                  id="role"
+                  name="role"
+                  value={formData.role}
                   onChange={handleChange}
                   disabled={!isEditing}
+                  readOnly
                 />
               </div>
               <div className="profile-input-group">

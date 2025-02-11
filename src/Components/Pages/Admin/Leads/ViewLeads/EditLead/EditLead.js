@@ -239,7 +239,7 @@ const EditOppLead = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col md={4}>
+                {/* <Col md={4}>
                   <Form.Group className="mb-3">
                     <Form.Label>Another Name</Form.Label>
                     <Form.Control
@@ -249,10 +249,10 @@ const EditOppLead = () => {
                       onChange={handleChange}
                     />
                   </Form.Group>
-                </Col>
+                </Col> */}
                 <Col md={4}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Another Email</Form.Label>
+                    <Form.Label>Secondary Email</Form.Label>
                     <Form.Control
                       type="email"
                       name="another_email"
@@ -263,7 +263,7 @@ const EditOppLead = () => {
                 </Col>
                 <Col md={4}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Another Phone Number</Form.Label>
+                    <Form.Label>Secondary Phone Number</Form.Label>
                     <Form.Control
                       type="text"
                       name="another_phone_number"

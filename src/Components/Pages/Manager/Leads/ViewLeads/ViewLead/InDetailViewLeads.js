@@ -137,21 +137,21 @@ const InDetailViewLeads = () => {
                       </span>
                       <span>{formData.destination}</span>
                     </div>
-                    <div className="mb-3 d-flex flex-wrap">
+                    {/* <div className="mb-3 d-flex flex-wrap">
                       <span className="fw-bold me-2" style={{ minWidth: "150px" }}>
                         Another Name:
                       </span>
                       <span>{formData.another_name}</span>
-                    </div>
+                    </div> */}
                     <div className="mb-3 d-flex flex-wrap">
                       <span className="fw-bold me-2" style={{ minWidth: "150px" }}>
-                        Another Email:
+                        Secondary Email:
                       </span>
                       <span>{formData.another_email}</span>
                     </div>
                     <div className="mb-3 d-flex flex-wrap">
                       <span className="fw-bold me-2" style={{ minWidth: "150px" }}>
-                        Another Phone Number:
+                        Secondary Phone Number:
                       </span>
                       <span>{formData.another_phone_number}</span>
                     </div>

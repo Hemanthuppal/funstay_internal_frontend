@@ -262,19 +262,18 @@ const Manager = ({ onToggleSidebar }) => {
               </li>
 
               <li
-                className={`manager-nav-item ${location.pathname.startsWith("/m-customers") ||
-                    location.pathname.startsWith("/m-customer-details") ||
-                    location.pathname.startsWith("/m-customerdetails") ||
-                    location.pathname.startsWith("/m-editcustomerdetails")
-                    ? "active"
-                    : ""
-                  }`}
-              >
-                <Link className="nav-link" to="/m-customers" onClick={handleNavItemClick}>
-                  <FaUserFriends className="manager-nav-icon" />
-                  {!collapsed && <span className="link_text">My Teams customer</span>}
-                </Link>
-              </li>
+  className={`manager-nav-item ${
+    ["/m-customers", "/m-customer-details", "/m-customerdetails", "/m-editcustomerdetails"].some(path => location.pathname.includes(path))
+      ? "active"
+      : ""
+  }`}
+>
+  <Link className="nav-link" to="/m-customers" onClick={handleNavItemClick}>
+    <FaUserFriends className="manager-nav-icon" />
+    {!collapsed && <span className="link_text">My Teams customer</span>}
+  </Link>
+</li>
+
 
               <li
                 className={`manager-nav-item ${location.pathname === "/m-myteam" ? "active" : ""

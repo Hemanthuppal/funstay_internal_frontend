@@ -83,7 +83,7 @@ const EditOppLead = () => {
         const opportunityData = response.data;
         const formattedStartDate = opportunityData.start_date ? new Date(opportunityData.start_date).toISOString().split('T')[0] : '';
         const formattedEndDate = opportunityData.end_date ? new Date(opportunityData.end_date).toISOString().split('T')[0] : '';
-        const reminder = opportunityData.reminder_setting ? new Date(opportunityData.reminder_setting).toISOString().split('T')[0] : '';
+        const reminder = opportunityData.reminder_setting ? new Date(opportunityData.reminder_setting).toISOString().slice(0, 16) : ''; 
         setFormData((prev) => ({
           ...prev,
           destination: opportunityData.destination || '',
@@ -473,7 +473,7 @@ const EditOppLead = () => {
                   </Col>
                 )}
 
-                <Col md={4}>
+                {/* <Col md={4}>
                   <Form.Group className="mb-3">
                     <Form.Label>Another Name</Form.Label>
                     <Form.Control
@@ -483,10 +483,10 @@ const EditOppLead = () => {
                       onChange={handleChange}
                     />
                   </Form.Group>
-                </Col>
+                </Col> */}
                 <Col md={4}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Another Email</Form.Label>
+                    <Form.Label>Secondary Email</Form.Label>
                     <Form.Control
                       type="email"
                       name="another_email"
@@ -497,7 +497,7 @@ const EditOppLead = () => {
                 </Col>
                 <Col md={4}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Another Phone Number</Form.Label>
+                    <Form.Label>Secondary Phone Number</Form.Label>
                     <Form.Control
                       type="text"
                       name="another_phone_number"
@@ -623,7 +623,7 @@ const EditOppLead = () => {
 
 <Col md={4}>
   <Form.Group className="mb-3">
-    <Form.Label>Duration (Days)</Form.Label>
+    <Form.Label>Duration (Nights)</Form.Label>
     <Form.Control
       type="number"
       name="duration"
@@ -695,12 +695,12 @@ const EditOppLead = () => {
                   <Form.Group className="mb-3">
                     <Form.Label>Reminder Setting</Form.Label>
                     <Form.Control
-                      type="date"
+                      type="datetime-local" // Change to datetime-local for date and time
                       name="reminder_setting"
                       value={formData.reminder_setting}
                       onChange={handleChange}
-                      min={new Date().toISOString().split("T")[0]} // Disable past dates
-                      max={formData.start_date} // Disable dates after start date
+                      min={new Date().toISOString().slice(0, 16)} // Disable past dates
+                      max={formData.start_date ? new Date(formData.start_date).toISOString().slice(0, 16) : ""} // Disable dates after start date
                     />
                   </Form.Group>
                 </Col>

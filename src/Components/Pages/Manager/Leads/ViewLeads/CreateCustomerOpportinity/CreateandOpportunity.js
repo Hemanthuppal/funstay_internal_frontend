@@ -33,6 +33,7 @@ const CreateCustomerOpportunity = () => {
     approx_budget: "",
     reminder_setting: "",
     notes: "",
+    description: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -114,7 +115,7 @@ const CreateCustomerOpportunity = () => {
     setLoading(true);
     setError(null);
 
-    if (!formData.destination || !startDate || !endDate || !formData.reminder_setting || !formData.notes) {
+    if (!formData.destination || !startDate || !endDate ) {
       setError("All required fields must be filled in.");
       setLoading(false);
       return;
@@ -163,9 +164,12 @@ const CreateCustomerOpportunity = () => {
         setLeadData(response.data);
 
         // Pre-fill destination if available in lead data
-        if (response.data.destination) {
-          setFormData((prev) => ({ ...prev, destination: response.data.destination }));
-        }
+       
+          setFormData((prev) => ({ ...prev, destination: response.data.destination,
+            notes: response.data.description || "", 
+            description: response.data.description || ""
+          }));
+       
       } catch (err) {
         console.error("Error fetching lead data:", err);
         setError("Error fetching lead data.");
@@ -252,10 +256,10 @@ const CreateCustomerOpportunity = () => {
                 <label>Type of Travel</label>
                 <input type="text" name="travel_type" value={customerData.travel_type} onChange={handleChange} />
               </div>
-              <div className="createcustomer-input-group">
+              {/* <div className="createcustomer-input-group">
                 <label>Passport Number</label>
                 <input type="text" name="passport_number" value={customerData.passport_number} onChange={handleChange} />
-              </div>
+              </div> */}
               <div className="createcustomer-input-group">
                 <label>Preferred Contact Method</label>
                 <select
@@ -325,7 +329,7 @@ const CreateCustomerOpportunity = () => {
                 <input type="text" value={duration} readOnly />
               </div> */}
               <div className="createcustomer-input-group">
-              <label>Duration (Calculated)</label>
+              <label>Duration (Nights)</label>
   <input
     type="number"
     value={duration ? parseInt(duration) : ""}
@@ -388,27 +392,27 @@ const CreateCustomerOpportunity = () => {
                   placeholder="Optional"
                 />
               </div>
-              <div className="createcustomer-input-group">
-                <label>Reminder Setting<span style={{ color: "red" }}> *</span></label>
-                <input
-                  type="date"
-                  name="reminder_setting"
-                  min={new Date().toISOString().split("T")[0]}
-                  max={startDate}
-                  value={formData.reminder_setting}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
               <div className="createcustomer-input-group full-width">
-                <label>Notes<span style={{ color: "red" }}> *</span></label>
+                <label>Notes</label>
                 <textarea
                   name="notes"
-                  value={formData.notes}
+                  value={formData.notes}  // Pre-filled with lead's description
                   onChange={handleChange}
                   required
                 />
               </div>
+              <div className="createcustomer-input-group">
+  <label>Reminder Setting<span style={{ color: "red" }}> *</span></label>
+  <input
+    type="datetime-local" // Change to datetime-local for date and time
+    name="reminder_setting"
+    min={new Date().toISOString().slice(0, 16)} // Set min to current date and time
+    max={startDate ? new Date(startDate).toISOString().slice(0, 16) : ""} // Set max to start date if available
+    value={formData.reminder_setting}
+    onChange={handleChange}
+    required
+  />
+</div>
             </div>
           </div>
 
